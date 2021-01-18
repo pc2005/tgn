@@ -1,0 +1,48 @@
+{
+	"folders": [
+		{
+			"path": "."
+		}
+	],
+	"settings": {},
+	"launch": {
+		"version": "0.2.0",
+		"configurations": [
+			{
+				"name": "train: supervise",
+				"type": "python",
+				"request": "launch",
+				"program": "train_supervised.py",
+				"args": [
+					// wiki dataset by default
+					// "-d",
+					// "reddit",
+					"--use_memory",
+					"--prefix",
+					"tgn-attn",
+					"--n_runs",
+					"10"
+				],
+				"console": "integratedTerminal"
+			},
+
+			{
+				"name": "train: self-supervised",
+				"type": "python",
+				"request": "launch",
+				"program": "train_self_supervised.py",
+				"args": [
+					// wiki dataset by default
+					// "-d",
+					// "reddit",
+					"--use_memory",
+					"--prefix",
+					"tgn-attn",
+					"--n_runs",
+					"10"
+				],
+				"console": "integratedTerminal"
+			},
+		]
+	}
+}
