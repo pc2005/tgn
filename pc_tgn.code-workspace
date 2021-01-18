@@ -9,10 +9,10 @@
 		"version": "0.2.0",
 		"configurations": [
 			{
-				"name": "train: supervise",
+				"name": "train: self-supervised",
 				"type": "python",
 				"request": "launch",
-				"program": "train_supervised.py",
+				"program": "train_self_supervised.py",
 				"args": [
 					// wiki dataset by default
 					// "-d",
@@ -25,12 +25,12 @@
 				],
 				"console": "integratedTerminal"
 			},
-
 			{
-				"name": "train: self-supervised",
+				"name": "train: supervise",
 				"type": "python",
 				"request": "launch",
-				"program": "train_self_supervised.py",
+				"program": "train_supervised.py",
+				// needs pre-trained model from self-supervised
 				"args": [
 					// wiki dataset by default
 					// "-d",
