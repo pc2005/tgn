@@ -25,6 +25,7 @@
 				],
 				"console": "integratedTerminal"
 			},
+			
 			{
 				"name": "train: supervise",
 				"type": "python",
@@ -40,6 +41,19 @@
 					"tgn-attn",
 					"--n_runs",
 					"10"
+				],
+				"console": "integratedTerminal"
+			},
+
+			{
+				"name": "pre-processing",
+				"type": "python",
+				"request": "launch",
+				"program": "./utils/preprocess_data.py",
+				"args": [
+					"--data",
+					"wikipedia",
+					"--bipartite"
 				],
 				"console": "integratedTerminal"
 			},
