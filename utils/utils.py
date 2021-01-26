@@ -75,13 +75,14 @@ class RandEdgeSampler(object):
       self.random_state = np.random.RandomState(self.seed)
 
   def sample(self, size):
+    # randomly generate an edge
     if self.seed is None:
       src_index = np.random.randint(0, len(self.src_list), size)
       dst_index = np.random.randint(0, len(self.dst_list), size)
     else:
-
       src_index = self.random_state.randint(0, len(self.src_list), size)
       dst_index = self.random_state.randint(0, len(self.dst_list), size)
+
     return self.src_list[src_index], self.dst_list[dst_index]
 
   def reset_random_state(self):
