@@ -53,6 +53,7 @@ class TGN(torch.nn.Module):
     self.mean_time_shift_dst = mean_time_shift_dst
     self.std_time_shift_dst = std_time_shift_dst
 
+    # initialize memory module
     if self.use_memory:
       self.memory_dimension = memory_dimension
       self.memory_update_at_start = memory_update_at_start
@@ -75,8 +76,8 @@ class TGN(torch.nn.Module):
                                                memory_dimension=self.memory_dimension,
                                                device=device)
 
+    # initialize embedding module
     self.embedding_module_type = embedding_module_type
-
     self.embedding_module = get_embedding_module(module_type=embedding_module_type,
                                                  node_features=self.node_raw_features,
                                                  edge_features=self.edge_raw_features,

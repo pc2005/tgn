@@ -139,7 +139,7 @@ nn_test_rand_sampler = RandEdgeSampler(new_node_test_data.sources,
 device_string = 'cuda:{}'.format(GPU) if torch.cuda.is_available() else 'cpu'
 device = torch.device(device_string)
 
-# Compute time statistics
+# Compute timestamp statistics
 mean_time_shift_src, std_time_shift_src, mean_time_shift_dst, std_time_shift_dst = \
   compute_time_statistics(full_data.sources, full_data.destinations, full_data.timestamps)
 
@@ -165,8 +165,14 @@ for i in range(args.n_runs):
             use_destination_embedding_in_message=args.use_destination_embedding_in_message,
             use_source_embedding_in_message=args.use_source_embedding_in_message,
             dyrep=args.dyrep)
+  
+  # loss function
   criterion = torch.nn.BCELoss()
+
+  # optimizer
   optimizer = torch.optim.Adam(tgn.parameters(), lr=LEARNING_RATE)
+  
+  # move to device
   tgn = tgn.to(device)
 
   num_instance = len(train_data.sources)
@@ -182,7 +188,9 @@ for i in range(args.n_runs):
   total_epoch_times = []
   train_losses = []
 
+  # init early stopper
   early_stopper = EarlyStopMonitor(max_round=args.patience)
+
   for epoch in range(NUM_EPOCH):
     start_epoch = time.time()
     ### Training
@@ -221,6 +229,7 @@ for i in range(args.n_runs):
           pos_label = torch.ones(size, dtype=torch.float, device=device)
           neg_label = torch.zeros(size, dtype=torch.float, device=device)
 
+        # feed-forward
         tgn = tgn.train()
         pos_prob, neg_prob = tgn.compute_edge_probabilities(sources_batch, destinations_batch, negatives_batch,
                                                             timestamps_batch, edge_idxs_batch, NUM_NEIGHBORS)
@@ -229,7 +238,9 @@ for i in range(args.n_runs):
 
       loss /= args.backprop_every
 
+      # back-propagation
       loss.backward()
+      # update optimizer
       optimizer.step()
       m_loss.append(loss.item())
 
